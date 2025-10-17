@@ -65,6 +65,9 @@ from mitmproxy import http as mitmhttp
 from mitmproxy.tools.dump import DumpMaster
 from mitmproxy.options import Options as MitmOptions
 
+# BOAZ Integration
+from boaz import BOAZManager
+
 # ============================================================================
 # LOGGING CONFIGURATION (MUST BE FIRST)
 # ============================================================================
@@ -8632,6 +8635,9 @@ class VulnerabilityCorrelator:
 cve_intelligence = CVEIntelligenceManager()
 exploit_generator = AIExploitGenerator()
 vulnerability_correlator = VulnerabilityCorrelator()
+
+# BOAZ Integration - Red Team Payload Generation
+boaz_manager = BOAZManager()
 
 def execute_command(command: str, use_cache: bool = True) -> Dict[str, Any]:
     """
@@ -17249,6 +17255,117 @@ def get_alternative_tools():
     except Exception as e:
         logger.error(f"Error getting alternative tools: {str(e)}")
         return jsonify({"error": f"Server error: {str(e)}"}), 500
+
+# ============================================================================
+# BOAZ RED TEAM PAYLOAD GENERATION ENDPOINTS
+# ============================================================================
+
+@app.route("/api/boaz/generate-payload", methods=["POST"])
+def boaz_generate_payload():
+    """Generate evasive payload using BOAZ framework"""
+    try:
+        data = request.get_json()
+
+        if not data:
+            return jsonify({"error": "No JSON data provided"}), 400
+
+        # Required parameters
+        if "input_file" not in data or "output_file" not in data:
+            return jsonify({"error": "input_file and output_file are required"}), 400
+
+        logger.info(f"BOAZ: Generating payload {data.get('input_file')} -> {data.get('output_file')}")
+
+        result = boaz_manager.generate_payload(data)
+
+        if result.get("success"):
+            return jsonify(result), 200
+        else:
+            return jsonify(result), 500
+
+    except Exception as e:
+        logger.error(f"Error in BOAZ payload generation: {str(e)}")
+        return jsonify({"error": f"Server error: {str(e)}", "success": False}), 500
+
+@app.route("/api/boaz/list-loaders", methods=["GET"])
+def boaz_list_loaders():
+    """List available BOAZ process injection loaders"""
+    try:
+        category = request.args.get("category", "all")
+
+        logger.info(f"BOAZ: Listing loaders (category={category})")
+
+        result = boaz_manager.list_loaders(category=category)
+
+        return jsonify(result), 200
+
+    except Exception as e:
+        logger.error(f"Error listing BOAZ loaders: {str(e)}")
+        return jsonify({"error": f"Server error: {str(e)}", "success": False}), 500
+
+@app.route("/api/boaz/list-encoders", methods=["GET"])
+def boaz_list_encoders():
+    """List available BOAZ encoding schemes"""
+    try:
+        logger.info("BOAZ: Listing encoders")
+
+        result = boaz_manager.list_encoders()
+
+        return jsonify(result), 200
+
+    except Exception as e:
+        logger.error(f"Error listing BOAZ encoders: {str(e)}")
+        return jsonify({"error": f"Server error: {str(e)}", "success": False}), 500
+
+@app.route("/api/boaz/analyze-binary", methods=["POST"])
+def boaz_analyze_binary():
+    """Analyze binary characteristics and entropy"""
+    try:
+        data = request.get_json()
+
+        if not data:
+            return jsonify({"error": "No JSON data provided"}), 400
+
+        if "file_path" not in data:
+            return jsonify({"error": "file_path is required"}), 400
+
+        logger.info(f"BOAZ: Analyzing binary {data.get('file_path')}")
+
+        result = boaz_manager.analyze_binary(data["file_path"])
+
+        if result.get("success"):
+            return jsonify(result), 200
+        else:
+            return jsonify(result), 500
+
+    except Exception as e:
+        logger.error(f"Error analyzing binary: {str(e)}")
+        return jsonify({"error": f"Server error: {str(e)}", "success": False}), 500
+
+@app.route("/api/boaz/validate-options", methods=["POST"])
+def boaz_validate_options():
+    """Validate BOAZ configuration parameters"""
+    try:
+        data = request.get_json()
+
+        if not data:
+            return jsonify({"error": "No JSON data provided"}), 400
+
+        logger.info("BOAZ: Validating configuration options")
+
+        result = boaz_manager.validate_options(
+            loader=data.get("loader"),
+            encoding=data.get("encoding"),
+            compiler=data.get("compiler")
+        )
+
+        if result.get("success"):
+            return jsonify(result), 200
+        else:
+            return jsonify(result), 400
+
+    except Exception as e:
+        logger.error(f"Error validating options: {str(e)}")
+        return jsonify({"error": f"Server error: {str(e)}", "success": False}), 500
 
 # Create the banner after all classes are defined
 BANNER = ModernVisualEngine.create_banner()

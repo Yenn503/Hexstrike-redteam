@@ -1,0 +1,6 @@
+pyinstaller==6.14.2
+altgraph==0.17.4
+packaging>=22.0
+pyinstaller-hooks-contrib>=2025.5
+cryptography
+base58

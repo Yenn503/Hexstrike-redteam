@@ -5411,6 +5411,281 @@ def setup_mcp_server(hexstrike_client: HexStrikeClient) -> FastMCP:
 
         return result
 
+    # ============================================================================
+    # BOAZ RED TEAM PAYLOAD GENERATION TOOLS
+    # ============================================================================
+
+    @mcp.tool()
+    def boaz_generate_payload(
+        input_file: str,
+        output_file: str,
+        loader: int = 16,
+        encoding: str = "",
+        compiler: str = "mingw",
+        shellcode_type: str = "donut",
+        obfuscate: bool = False,
+        obfuscate_api: bool = False,
+        anti_emulation: bool = False,
+        sleep: bool = False,
+        dream: int = 0,
+        etw: bool = False,
+        api_unhooking: bool = False,
+        god_speed: bool = False,
+        cfg: bool = False,
+        self_deletion: bool = False,
+        anti_forensic: bool = False,
+        dll: bool = False,
+        cpl: bool = False,
+        entropy: int = 0,
+        sign_certificate: str = "",
+        sgn_encode: bool = False,
+        stardust: bool = False,
+        syswhisper: int = 0,
+        junk_api: bool = False,
+        mllvm: str = "",
+        binder: str = "",
+        watermark: bool = False,
+        icon: bool = False,
+        detect_hooks: bool = False,
+        divide: bool = False
+    ) -> Dict[str, Any]:
+        """
+        Generate evasive payload using BOAZ framework with full parameter support.
+
+        BOAZ wraps existing malicious payloads (beacon.exe, mimikatz.exe, etc.) with
+        advanced evasion techniques including 77+ process injection loaders, 12 encoding
+        schemes, LLVM obfuscation, API unhooking, ETW patching, and anti-emulation.
+
+        Args:
+            input_file: Path to input PE executable (relative to BOAZ_PATH)
+            output_file: Path for output executable (relative to BOAZ_PATH)
+            loader: Loader number (1-77). Default: 16 (Classic Userland APIs)
+            encoding: Encoding scheme (uuid, xor, mac, ipv4, base45, base64, base58, aes, des, chacha, rc4, aes2)
+            compiler: Compiler choice (mingw, pluto, akira). Default: mingw
+            shellcode_type: Shellcode generator (donut, pe2sh, rc4, amber, shoggoth, augment). Default: donut
+            obfuscate: Enable source code obfuscation
+            obfuscate_api: Enable API call obfuscation
+            anti_emulation: Enable anti-emulation checks
+            sleep: Enable sleep obfuscation
+            dream: Encrypted stack sleep duration (ms)
+            etw: Enable ETW patching
+            api_unhooking: Enable API unhooking
+            god_speed: Enable advanced unhooking
+            cfg: Disable Control Flow Guard
+            self_deletion: Enable self-deletion
+            anti_forensic: Enable anti-forensic cleanup
+            dll: Compile as DLL
+            cpl: Compile as CPL
+            entropy: Entropy reduction (1: null, 2: pokemon)
+            sign_certificate: Website or file path for signing
+            sgn_encode: Apply Shikata Ga Nai polymorphic encoding
+            stardust: Use Stardust PIC generator (input must be .bin)
+            syswhisper: Direct syscalls (1: random jumps, 2: MingW+NASM)
+            junk_api: Insert benign API calls for mimicry attacks
+            mllvm: Custom LLVM passes (comma-separated)
+            binder: Path to utility for binding
+            watermark: Add watermark to binary
+            icon: Enable icon for output binary
+            detect_hooks: Compile check_hook.exe for detecting hooks
+            divide: Enable divide and conquer for AES2
+
+        Returns:
+            Result with payload generation status and output information
+        """
+        data = {
+            "input_file": input_file,
+            "output_file": output_file,
+            "loader": loader,
+            "compiler": compiler,
+            "shellcode_type": shellcode_type,
+            "obfuscate": obfuscate,
+            "obfuscate_api": obfuscate_api,
+            "anti_emulation": anti_emulation,
+            "sleep": sleep,
+            "etw": etw,
+            "api_unhooking": api_unhooking,
+            "god_speed": god_speed,
+            "cfg": cfg,
+            "self_deletion": self_deletion,
+            "anti_forensic": anti_forensic,
+            "dll": dll,
+            "cpl": cpl,
+            "sgn_encode": sgn_encode,
+            "stardust": stardust,
+            "junk_api": junk_api,
+            "watermark": watermark,
+            "icon": icon,
+            "detect_hooks": detect_hooks,
+            "divide": divide
+        }
+
+        # Add optional parameters if provided
+        if encoding:
+            data["encoding"] = encoding
+        if dream > 0:
+            data["dream"] = dream
+        if entropy > 0:
+            data["entropy"] = entropy
+        if sign_certificate:
+            data["sign_certificate"] = sign_certificate
+        if syswhisper > 0:
+            data["syswhisper"] = syswhisper
+        if mllvm:
+            data["mllvm"] = mllvm
+        if binder:
+            data["binder"] = binder
+
+        logger.info(f"{HexStrikeColors.FIRE_RED}🔥 BOAZ: Generating evasive payload{HexStrikeColors.RESET}")
+        logger.info(f"  📂 Input: {input_file}")
+        logger.info(f"  📂 Output: {output_file}")
+        logger.info(f"  🎯 Loader: {loader}")
+        if encoding:
+            logger.info(f"  🔒 Encoding: {encoding}")
+
+        result = hexstrike_client.safe_post("api/boaz/generate-payload", data)
+
+        if result.get("success"):
+            logger.info(f"{HexStrikeColors.SUCCESS}✅ BOAZ: Payload generated successfully{HexStrikeColors.RESET}")
+            logger.info(f"  📊 Size: {result.get('file_size', 0)} bytes")
+        else:
+            logger.error(f"{HexStrikeColors.ERROR}❌ BOAZ: Payload generation failed{HexStrikeColors.RESET}")
+
+        return result
+
+    @mcp.tool()
+    def boaz_list_loaders(category: str = "all") -> Dict[str, Any]:
+        """
+        List available BOAZ process injection loaders (77+ loaders across 6 categories).
+
+        Categories:
+        - syscall: Direct system calls to bypass userland hooks
+        - userland: Standard Windows API injection
+        - stealth: Advanced techniques for maximum stealth
+        - memory_guard: Protects injected code from memory scanning
+        - veh_vch: Exception handler-based injection
+        - threadless: Executes without creating new threads
+        - all: Show all loaders
+
+        Args:
+            category: Filter by loader category (default: all)
+
+        Returns:
+            Dictionary with loader information
+        """
+        logger.info(f"{HexStrikeColors.CRIMSON}📋 BOAZ: Listing loaders (category={category}){HexStrikeColors.RESET}")
+
+        result = hexstrike_client.safe_get("api/boaz/list-loaders", {"category": category})
+
+        if result.get("success"):
+            logger.info(f"{HexStrikeColors.SUCCESS}✅ BOAZ: Found {result.get('count', 0)} loaders{HexStrikeColors.RESET}")
+        else:
+            logger.error(f"{HexStrikeColors.ERROR}❌ BOAZ: Failed to list loaders{HexStrikeColors.RESET}")
+
+        return result
+
+    @mcp.tool()
+    def boaz_list_encoders() -> Dict[str, Any]:
+        """
+        List available BOAZ encoding schemes (12 encoders).
+
+        Encoding schemes include:
+        - uuid: Universally Unique Identifier format (low entropy)
+        - xor: Simple XOR encryption (fast)
+        - mac/ipv4: Network-themed obfuscation
+        - base45/base64/base58: Base encoding variants
+        - aes/aes2: AES encryption (high strength)
+        - des/chacha/rc4: Alternative encryption schemes
+
+        Returns:
+            Dictionary with encoder information
+        """
+        logger.info(f"{HexStrikeColors.BLOOD_RED}📋 BOAZ: Listing encoders{HexStrikeColors.RESET}")
+
+        result = hexstrike_client.safe_get("api/boaz/list-encoders")
+
+        if result.get("success"):
+            logger.info(f"{HexStrikeColors.SUCCESS}✅ BOAZ: Found {result.get('count', 0)} encoders{HexStrikeColors.RESET}")
+        else:
+            logger.error(f"{HexStrikeColors.ERROR}❌ BOAZ: Failed to list encoders{HexStrikeColors.RESET}")
+
+        return result
+
+    @mcp.tool()
+    def boaz_analyze_binary(file_path: str) -> Dict[str, Any]:
+        """
+        Analyze binary characteristics and entropy.
+
+        Calculates Shannon entropy (0-8 scale) to determine if binary will trigger
+        heuristic detection. High entropy (>7.5) indicates encryption/packing that
+        may be flagged by AV/EDR. Provides recommendations for entropy reduction.
+
+        Args:
+            file_path: Path to binary file (relative to BOAZ_PATH)
+
+        Returns:
+            Analysis results with entropy score and recommendations
+        """
+        logger.info(f"{HexStrikeColors.RUBY}🔬 BOAZ: Analyzing binary: {file_path}{HexStrikeColors.RESET}")
+
+        data = {"file_path": file_path}
+        result = hexstrike_client.safe_post("api/boaz/analyze-binary", data)
+
+        if result.get("success"):
+            entropy = result.get("entropy", 0)
+            logger.info(f"{HexStrikeColors.SUCCESS}✅ BOAZ: Analysis complete{HexStrikeColors.RESET}")
+            logger.info(f"  📊 Entropy: {entropy:.4f}")
+
+            if entropy > 7.5:
+                logger.warning(f"  {HexStrikeColors.ERROR}🔴 HIGH ENTROPY - May be detected{HexStrikeColors.RESET}")
+            elif entropy > 6.5:
+                logger.info(f"  {HexStrikeColors.WARNING}🟡 MEDIUM ENTROPY{HexStrikeColors.RESET}")
+            else:
+                logger.info(f"  {HexStrikeColors.SUCCESS}🟢 LOW ENTROPY - Good for evasion{HexStrikeColors.RESET}")
+        else:
+            logger.error(f"{HexStrikeColors.ERROR}❌ BOAZ: Analysis failed{HexStrikeColors.RESET}")
+
+        return result
+
+    @mcp.tool()
+    def boaz_validate_options(loader: int = 0, encoding: str = "", compiler: str = "") -> Dict[str, Any]:
+        """
+        Validate BOAZ configuration parameters before payload generation.
+
+        Checks:
+        - Loader number is valid (1-77)
+        - Encoding scheme is supported
+        - Compiler is available
+        - Loader-encoding compatibility (some loaders require specific encodings)
+
+        Args:
+            loader: Loader number to validate (optional)
+            encoding: Encoding scheme to validate (optional)
+            compiler: Compiler to validate (optional)
+
+        Returns:
+            Validation results with any issues found
+        """
+        logger.info(f"{HexStrikeColors.SCARLET}✔️  BOAZ: Validating configuration{HexStrikeColors.RESET}")
+
+        data = {}
+        if loader > 0:
+            data["loader"] = loader
+        if encoding:
+            data["encoding"] = encoding
+        if compiler:
+            data["compiler"] = compiler
+
+        result = hexstrike_client.safe_post("api/boaz/validate-options", data)
+
+        if result.get("success"):
+            logger.info(f"{HexStrikeColors.SUCCESS}✅ BOAZ: Configuration valid{HexStrikeColors.RESET}")
+        else:
+            logger.warning(f"{HexStrikeColors.WARNING}⚠️  BOAZ: Configuration issues found{HexStrikeColors.RESET}")
+            for issue in result.get("issues", []):
+                logger.warning(f"  - {issue}")
+
+        return result
+
     return mcp
 
 def parse_args():
