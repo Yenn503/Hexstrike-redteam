@@ -530,6 +530,35 @@ HexStrike now includes **BOAZ**, an advanced payload evasion framework for red t
 - **Anti-Analysis** - Anti-emulation checks, sleep obfuscation, entropy reduction
 - **Binary Analysis** - Entropy analysis and optimization for heuristic evasion
 
+### BOAZ Capabilities in Action
+
+<div align="center">
+
+#### EDR/AV Bypass Demonstration
+**BOAZ-generated payload successfully bypassing ESET Smart Security Premium**
+
+<img src="assets/EDRbypass.png" alt="BOAZ EDR Bypass" width="800"/>
+
+*Payload with stealth injection techniques evading real-time protection and maintaining low detection profile*
+
+---
+
+#### MSFVenom Payload Obfuscation
+**Complete workflow: MSFVenom generation → BOAZ evasion → Enterprise-grade stealth payload**
+
+<img src="assets/Hex-Boaz.png" alt="BOAZ MSFVenom Obfuscation" width="900"/>
+
+*Demonstrates BOAZ transforming standard MSFVenom payloads into sophisticated evasive binaries with:*
+- **Loader #16** (Standard stealth injection)
+- **UUID Encoding** (Low entropy, legitimate-looking format)
+- **ETW Bypass** (Event Tracing for Windows patching)
+- **Anti-Emulation** (Sandbox detection)
+- **Entropy: 6.06/8** (Excellent for bypassing heuristic analysis)
+
+</div>
+
+---
+
 ### BOAZ MCP Tools
 
 **Critical Workflow** (files MUST be in BOAZ_beta directory):
