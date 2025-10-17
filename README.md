@@ -34,24 +34,32 @@ HexStrike AI MCP v6.0 features a multi-agent architecture with autonomous AI age
 }}}%%
 graph TD
     A[AI Agent - Claude/GPT/Copilot] -->|MCP Protocol| B[HexStrike MCP Server v6.0]
-    
+
     B --> C[Intelligent Decision Engine]
     B --> D[12+ Autonomous AI Agents]
     B --> E[Modern Visual Engine]
-    
+    B --> BOAZ[BOAZ Payload Engine]
+
     C --> F[Tool Selection AI]
     C --> G[Parameter Optimization]
     C --> H[Attack Chain Discovery]
-    
+
     D --> I[BugBounty Agent]
     D --> J[CTF Solver Agent]
     D --> K[CVE Intelligence Agent]
     D --> L[Exploit Generator Agent]
-    
+
     E --> M[Real-time Dashboards]
     E --> N[Progress Visualization]
     E --> O[Vulnerability Cards]
-    
+
+    BOAZ --> BOAZ1[77+ Process Injection Loaders]
+    BOAZ --> BOAZ2[12 Encoding Schemes]
+    BOAZ --> BOAZ3[EDR/AV Evasion]
+    BOAZ1 --> BOAZ4[Syscall/Stealth/Threadless]
+    BOAZ2 --> BOAZ5[AES/ChaCha20/UUID/XOR]
+    BOAZ3 --> BOAZ6[API Unhooking/ETW Patching]
+
     B --> P[150+ Security Tools]
     P --> Q[Network Tools - 25+]
     P --> R[Web App Tools - 40+]
@@ -59,26 +67,28 @@ graph TD
     P --> T[Binary Tools - 25+]
     P --> U[CTF Tools - 20+]
     P --> V[OSINT Tools - 20+]
-    
+
     B --> W[Advanced Process Management]
     W --> X[Smart Caching]
     W --> Y[Resource Optimization]
     W --> Z[Error Recovery]
-    
+
     style A fill:#b71c1c,stroke:#ff5252,stroke-width:3px,color:#fffde7
     style B fill:#ff5252,stroke:#b71c1c,stroke-width:4px,color:#fffde7
     style C fill:#ff8a80,stroke:#b71c1c,stroke-width:2px,color:#fffde7
     style D fill:#ff8a80,stroke:#b71c1c,stroke-width:2px,color:#fffde7
     style E fill:#ff8a80,stroke:#b71c1c,stroke-width:2px,color:#fffde7
+    style BOAZ fill:#d32f2f,stroke:#b71c1c,stroke-width:3px,color:#fffde7
 ```
 
 ### How It Works
 
 1. **AI Agent Connection** - Claude, GPT, or other MCP-compatible agents connect via FastMCP protocol
 2. **Intelligent Analysis** - Decision engine analyzes targets and selects optimal testing strategies
-3. **Autonomous Execution** - AI agents execute comprehensive security assessments
+3. **Autonomous Execution** - AI agents execute comprehensive security assessments using 150+ tools
 4. **Real-time Adaptation** - System adapts based on results and discovered vulnerabilities
-5. **Advanced Reporting** - Visual output with vulnerability cards and risk analysis
+5. **BOAZ Payload Generation** - Advanced payload evasion with 77+ loaders, 12 encoders, and EDR/AV bypass
+6. **Advanced Reporting** - Visual output with vulnerability cards and risk analysis
 
 ---
 
