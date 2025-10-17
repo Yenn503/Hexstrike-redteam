@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.o
+*.a
 .Python
 build/
 develop-eggs/
@@ -40,6 +42,8 @@ BOAZ_beta/output/*.bin
 BOAZ_beta/build_*/
 BOAZ_beta/temp/
 BOAZ_beta/*.exe
+BOAZ_beta/note_donut
+BOAZ_beta/loaders/*_modified.*
 !BOAZ_beta/notepad.exe
 
 # Generated payloads and binaries
@@ -98,6 +102,7 @@ temp/
 *.bak
 *.backup
 *.old
+*.backup_before_removal
 README.md.backup
 
 # OS
