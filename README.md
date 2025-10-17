@@ -843,27 +843,16 @@ MIT License - see LICENSE file for details.
 
 <div align="center">
 
-## 🌟 **Star History**
+## 🔗 Original HexStrike Repository
 
-[![Star History Chart](https://api.star-history.com/svg?repos=0x4m4/hexstrike-ai&type=Date)](https://star-history.com/#0x4m4/hexstrike-ai&Date)
+This is a fork with BOAZ red team integration. For the official HexStrike AI project, visit:
 
-### **📊 Project Statistics**
-
-- **150+ Security Tools** - Comprehensive security testing arsenal
-- **12+ AI Agents** - Autonomous decision-making and workflow management
-- **4000+ Vulnerability Templates** - Nuclei integration with extensive coverage
-- **35+ Attack Categories** - From web apps to cloud infrastructure
-- **Real-time Processing** - Sub-second response times with intelligent caching
-- **99.9% Uptime** - Fault-tolerant architecture with graceful degradation
-
-### **🚀 Ready to Transform Your AI Agents?**
-
-**[⭐ Star this repository](https://github.com/0x4m4/hexstrike-ai)** • **[🍴 Fork and contribute](https://github.com/0x4m4/hexstrike-ai/fork)** • **[📖 Read the docs](docs/)**
+**[Official HexStrike AI Repository](https://github.com/0x4m4/hexstrike-ai)**
 
 ---
 
 **Made with ❤️ by the cybersecurity community for AI-powered security automation**
 
-*HexStrike AI v6.0 - Where artificial intelligence meets cybersecurity excellence*
+*HexStrike AI v6.0 with BOAZ Red Team Integration - Where artificial intelligence meets cybersecurity excellence*
 
 </div>
