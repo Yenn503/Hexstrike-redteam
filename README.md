@@ -245,7 +245,7 @@ Configure VS Code settings in `.vscode/settings.json`:
 
 ### Security Tools Arsenal
 
-**150+ Professional Security Tools:**
+**155+ Professional Security Tools (including BOAZ Red Team):**
 
 <details>
 <summary><b>🔍 Network Reconnaissance & Scanning (25+ Tools)</b></summary>
@@ -451,6 +451,42 @@ Configure VS Code settings in `.vscode/settings.json`:
 - **Have I Been Pwned** - Breach data analysis and credential exposure
 - **Pipl** - People search engine integration for identity investigation
 - **TruffleHog** - Git repository secret scanning with entropy analysis
+
+</details>
+
+<details>
+<summary><b>🔥 BOAZ Red Team Payload Evasion (5 MCP Tools)</b></summary>
+
+**Advanced Payload Evasion Framework with 77+ Loaders and 12 Encoders:**
+
+- **boaz_generate_payload** - Generate evasive payloads with full parameter control
+  - 77+ Process Injection Loaders (Syscall, Stealth, Memory Guard, Threadless, VEH/VCH)
+  - 12 Encoding Schemes (AES, ChaCha20, UUID, XOR, MAC, RC4, base64/58/45, DES)
+  - EDR/AV Evasion (API unhooking, ETW patching, LLVM obfuscation)
+  - Anti-Analysis (Anti-emulation, sleep obfuscation, entropy reduction)
+  - Compiler Options (MinGW, Pluto, Akira LLVM obfuscators)
+  - Output Formats (EXE, DLL, CPL)
+  - Advanced Features (Self-deletion, anti-forensic, certificate signing)
+
+- **boaz_list_loaders** - List all 77+ process injection loaders
+  - Filter by category: syscall, stealth, memory_guard, threadless, veh_vch, userland
+  - Detailed descriptions and technique information
+  - Compatibility and requirements for each loader
+
+- **boaz_list_encoders** - List all 12 encoding schemes
+  - Encryption: AES, ChaCha20, DES, RC4, AES2
+  - Encoding: UUID, XOR, MAC, IPv4, Base45, Base64, Base58
+  - Performance and detection characteristics
+
+- **boaz_analyze_binary** - Analyze payload entropy for AV/EDR evasion
+  - Shannon entropy calculation
+  - Heuristic detection probability
+  - Optimization recommendations
+
+- **boaz_validate_options** - Validate BOAZ configuration before payload generation
+  - Loader compatibility checking
+  - Encoding scheme validation
+  - Compiler and parameter verification
 
 </details>
 
