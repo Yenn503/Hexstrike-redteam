@@ -2,7 +2,7 @@
 
 <img src="assets/REDTEAM.png" alt="HexStrike RedTeam Logo" width="400" style="margin-bottom: 20px;"/>
 
-# HexStrike AI MCP Agents v6.0
+# HexStrike AI MCP Agents 
 ### AI-Powered MCP Cybersecurity Automation Platform with BOAZ Red Team Integration
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
