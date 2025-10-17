@@ -1,43 +1,16 @@
 <div align="center">
 
-<img src="assets/hexstrike-logo.png" alt="HexStrike AI Logo" width="220" style="margin-bottom: 20px;"/>
+<img src="assets/REDTEAM.png" alt="HexStrike RedTeam Logo" width="400" style="margin-bottom: 20px;"/>
 
 # HexStrike AI MCP Agents v6.0
 ### AI-Powered MCP Cybersecurity Automation Platform with BOAZ Red Team Integration
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Security](https://img.shields.io/badge/Security-Penetration%20Testing-red.svg)](https://github.com/0x4m4/hexstrike-ai)
-[![MCP](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://github.com/0x4m4/hexstrike-ai)
-[![Version](https://img.shields.io/badge/Version-6.0.0-orange.svg)](https://github.com/0x4m4/hexstrike-ai/releases)
-[![Tools](https://img.shields.io/badge/Security%20Tools-155%2B-brightgreen.svg)](https://github.com/0x4m4/hexstrike-ai)
-[![Agents](https://img.shields.io/badge/AI%20Agents-12%2B-purple.svg)](https://github.com/0x4m4/hexstrike-ai)
-[![BOAZ](https://img.shields.io/badge/BOAZ-77%2B%20Loaders-red.svg)]()
-[![Stars](https://img.shields.io/github/stars/0x4m4/hexstrike-ai?style=social)](https://github.com/0x4m4/hexstrike-ai)
 
 **Advanced AI-powered penetration testing MCP framework with 155+ security tools, 12+ autonomous AI agents, and BOAZ red team payload evasion (77+ loaders, 12 encoders)**
 
 [📋 What's New](#whats-new-in-v60) • [🏗️ Architecture](#architecture-overview) • [🚀 Installation](#installation) • [🛠️ Features](#features) • [🤖 AI Agents](#ai-agents) • [📡 API Reference](#api-reference)
-
-</div>
-
----
-
-<div align="center">
-
-## Follow Our Social Accounts
-
-<p align="center">
-  <a href="https://discord.gg/BWnmrrSHbA">
-    <img src="https://img.shields.io/badge/Discord-Join-7289DA?logo=discord&logoColor=white&style=for-the-badge" alt="Join our Discord" />
-  </a>
-  &nbsp;&nbsp;
-  <a href="https://www.linkedin.com/company/hexstrike-ai">
-    <img src="https://img.shields.io/badge/LinkedIn-Follow%20us-0A66C2?logo=linkedin&logoColor=white&style=for-the-badge" alt="Follow us on LinkedIn" />
-  </a>
-</p>
-
-
 
 </div>
 
