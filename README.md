@@ -334,9 +334,14 @@ result = boaz_generate_payload(
     sleep=True                          # Sleep evasion
 )
 
-# STEP 6: Check if compilation succeeded
-# If result['success'] == False, try a different loader from the same category
-# Result: BOAZ_beta/output/evasive.exe (~500KB, heavily obfuscated)
+# STEP 6: Check result and locate the payload
+# If result['success'] == True:
+#   - The payload is at: result['output_path'] (full absolute path)
+#   - Example: /path/to/hexstrike-ai/BOAZ_beta/output/evasive.exe
+#   - File size: result['file_size'] (typically ~500KB, heavily obfuscated)
+# If result['success'] == False:
+#   - Try a different loader from the same category
+#   - Check result['error'] and result['stderr'] for compilation errors
 ```
 
 **Other BOAZ Tools:**
@@ -361,7 +366,8 @@ boaz_validate_options(loader=16, encoding="uuid")
 - Use `boaz_list_loaders(category="...")` to browse loaders by technique
 - ALL file paths are relative to BOAZ_beta directory
 - Input files MUST be inside BOAZ_beta/ (security requirement)
-- Output files go to BOAZ_beta/output/
+- **Output files go to BOAZ_beta/output/** (e.g., `hexstrike-ai/BOAZ_beta/output/evasive.exe`)
+- The AI will receive the full absolute path in `result['output_path']` when generation succeeds
 - Check `result['success']` after generation to verify compilation
 
 ### Loader Categories
