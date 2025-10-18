@@ -124,7 +124,7 @@ cd ..
 # - Build Pluto LLVM obfuscator (~20 min compile time)
 # - Install signature tools (Mangle, pyMetaTwin)
 # - Install SysWhispers2 for syscall generation
-# **Note:** This may take 1-2 hours depending on your system. Answer 'y' when prompted.
+# **Note:** This may take a while depending on your system. Answer 'y' when prompted.
 
 ```
 
