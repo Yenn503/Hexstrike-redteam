@@ -98,7 +98,7 @@ graph TD
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/0x4m4/hexstrike-ai.git
+git clone https://github.com/Yenn503/Hexstrike-redteam.git hexstrike-ai
 cd hexstrike-ai
 
 # 2. Create virtual environment
@@ -812,7 +812,7 @@ We welcome contributions from the cybersecurity and AI community!
 
 ```bash
 # 1. Fork and clone the repository
-git clone https://github.com/0x4m4/hexstrike-ai.git
+git clone https://github.com/Yenn503/Hexstrike-redteam.git hexstrike-ai
 cd hexstrike-ai
 
 # 2. Create development environment
