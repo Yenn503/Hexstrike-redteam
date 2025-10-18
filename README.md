@@ -109,6 +109,23 @@ source hexstrike-env/bin/activate  # Linux/Mac
 # 3. Install Python dependencies
 pip3 install -r requirements.txt
 
+# 4. **REQUIRED: Install BOAZ system dependencies**
+# This step is MANDATORY for BOAZ payload generation to work
+# Installs MinGW, NASM, Wine, LLVM obfuscators (Akira/Pluto), and build tools
+cd BOAZ_beta
+bash requirements.sh
+cd ..
+
+# The script will:
+# - Install MinGW cross-compiler (x86_64-w64-mingw32-g++)
+# - Install NASM assembler
+# - Install Wine (for testing Windows binaries)
+# - Build Akira LLVM obfuscator (~30 min compile time)
+# - Build Pluto LLVM obfuscator (~20 min compile time)
+# - Install signature tools (Mangle, pyMetaTwin)
+# - Install SysWhispers2 for syscall generation
+# **Note:** This may take 1-2 hours depending on your system. Answer 'y' when prompted.
+
 ```
 
 ### Installation and Setting Up Guide for various AI Clients:
