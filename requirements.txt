@@ -39,6 +39,16 @@ angr>=9.2.0,<10.0.0             # Binary analysis (import angr)
 bcrypt==4.0.1                   # Pin bcrypt version for passlib compatibility (fixes pwntools dependency issue)
 
 # ============================================================================
+# BOAZ RED TEAM PAYLOAD EVASION (REQUIRED FOR BOAZ TOOLS)
+# ============================================================================
+pyinstaller>=6.14.0,<7.0.0      # Payload compilation (BOAZ framework)
+altgraph>=0.17.0,<1.0.0         # PyInstaller dependency graph analysis
+packaging>=22.0,<25.0.0         # Version parsing and packaging utilities
+pyinstaller-hooks-contrib>=2025.5 # Additional PyInstaller hooks
+cryptography>=41.0.0,<44.0.0    # Encryption for payload encoding (AES, ChaCha20, etc.)
+base58>=2.1.0,<3.0.0            # Base58 encoding for BOAZ payloads
+
+# ============================================================================
 # EXTERNAL SECURITY TOOLS (150+ Tools - Install separately)
 # ============================================================================
 #
