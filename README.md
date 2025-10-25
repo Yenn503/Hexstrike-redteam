@@ -949,36 +949,6 @@ MIT License - see LICENSE file for details.
 
 ---
 
-## Author
-
-**m0x4m4** - [www.0x4m4.com](https://www.0x4m4.com) | [HexStrike](https://www.hexstrike.com)
-
----
-
-## Official Sponsor
-
-<p align="center">
-  <strong>Sponsored By LeaksAPI - Live Dark Web Data leak checker</strong>
-</p>
-
-<p align="center">
-  <a href="https://leak-check.net">
-    <img src="assets/leaksapi-logo.png" alt="LeaksAPI Logo" width="150" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://leak-check.net">
-    <img src="assets/leaksapi-banner.png" alt="LeaksAPI Banner" width="450" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://leak-check.net">
-    <img src="https://img.shields.io/badge/Visit-leak--check.net-00D4AA?style=for-the-badge&logo=shield&logoColor=white" alt="Visit leak-check.net" />
-  </a>
-</p>
-
----
-
 <div align="center">
 
 ## 🔗 Original HexStrike Repository
