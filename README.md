@@ -8,7 +8,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Advanced AI-powered penetration testing MCP framework with 155+ security tools, 12+ autonomous AI agents, and BOAZ red team payload evasion (77+ loaders, 12 encoders)**
+**Advanced AI-powered penetration testing MCP framework with 127 security tools (53 auto-installed), 12+ autonomous AI agents, and BOAZ red team payload evasion (77+ loaders, 12 encoders)**
 
 [📋 What's New](#whats-new-in-v60) • [🏗️ Architecture](#architecture-overview) • [🚀 Installation](#installation) • [🛠️ Features](#features) • [🤖 AI Agents](#ai-agents) • [📡 API Reference](#api-reference)
 
@@ -60,13 +60,13 @@ graph TD
     BOAZ2 --> BOAZ5[AES/ChaCha20/UUID/XOR]
     BOAZ3 --> BOAZ6[API Unhooking/ETW Patching]
 
-    B --> P[150+ Security Tools]
-    P --> Q[Network Tools - 25+]
-    P --> R[Web App Tools - 40+]
-    P --> S[Cloud Tools - 20+]
-    P --> T[Binary Tools - 25+]
-    P --> U[CTF Tools - 20+]
-    P --> V[OSINT Tools - 20+]
+    B --> P[127 Security Tools - 53 Auto-Installed]
+    P --> Q[Network Tools - 10]
+    P --> R[Web App Tools - 19]
+    P --> S[Cloud Tools - 10]
+    P --> T[Binary Tools - 13]
+    P --> U[CTF Tools - 10]
+    P --> V[OSINT Tools - 13]
 
     B --> W[Advanced Process Management]
     W --> X[Smart Caching]
@@ -151,30 +151,113 @@ Refer to the video above for step-by-step instructions and integration examples 
 
 ### Install Security Tools
 
-**Core Tools (Essential):**
+**Automated Installation (Recommended):**
+
+Run the installation script to automatically install **53 essential security tools**:
+
 ```bash
-# Network & Reconnaissance
-nmap masscan rustscan amass subfinder nuclei fierce dnsenum
-autorecon theharvester responder netexec enum4linux-ng
-
-# Web Application Security
-gobuster feroxbuster dirsearch ffuf dirb httpx katana
-nikto sqlmap wpscan arjun paramspider dalfox wafw00f
-
-# Password & Authentication
-hydra john hashcat medusa patator crackmapexec
-evil-winrm hash-identifier ophcrack
-
-# Binary Analysis & Reverse Engineering
-gdb radare2 binwalk ghidra checksec strings objdump
-volatility3 foremost steghide exiftool
+cd install
+sudo ./install_all.sh
 ```
 
-**Cloud Security Tools:**
-```bash
-prowler scout-suite trivy
-kube-hunter kube-bench docker-bench-security
-```
+This installs:
+- System dependencies (MinGW, Wine, NASM, build tools)
+- **70+ security tools** (53 currently working, see breakdown below)
+- Python virtual environment with all dependencies
+- BOAZ LLVM obfuscators (Akira + Pluto)
+- MCP configuration for Claude Desktop/CLI
+
+**What Gets Auto-Installed (53 Tools):**
+
+<details>
+<summary><b>✓ Network & Reconnaissance (10 tools)</b></summary>
+
+- nmap, masscan, rustscan, amass, subfinder, nuclei
+- autorecon, theharvester, responder, netexec, enum4linux-ng
+
+</details>
+
+<details>
+<summary><b>✓ Web Application Security (19 tools)</b></summary>
+
+- gobuster, feroxbuster, ffuf, nikto, sqlmap, wpscan
+- httpx, hakrawler, arjun, wafw00f, dalfox
+- gau, waybackurls, paramspider, anew, sublist3r
+- jwt-tool, testssl.sh, commix, nosqlmap
+
+</details>
+
+<details>
+<summary><b>✓ Password & Authentication (5 tools)</b></summary>
+
+- hydra, john, hashcat, evil-winrm, hashid
+
+</details>
+
+<details>
+<summary><b>✓ Binary Analysis & RE (13 tools)</b></summary>
+
+- gdb, radare2, binwalk, ghidra (JDK only), checksec
+- strings, objdump, volatility3, ropgadget, one-gadget
+- pwninit, angr, pwntools
+
+</details>
+
+<details>
+<summary><b>✓ Forensics (16 tools)</b></summary>
+
+- foremost, testdisk, steghide, exiftool, scalpel
+- sleuthkit, stegsolve, zsteg, photorec, volatility3
+
+</details>
+
+<details>
+<summary><b>✓ OSINT & Intelligence (13 tools)</b></summary>
+
+- sherlock, recon-ng, spiderfoot, trufflehog
+- amass, subfinder, theharvester, shodan-cli
+
+</details>
+
+<details>
+<summary><b>✓ Cloud Security (10 tools)</b></summary>
+
+- prowler, trivy, aws-cli, azure-cli, gcloud, kubectl
+- docker-bench-security
+
+</details>
+
+<details>
+<summary><b>✓ Metasploit Framework</b></summary>
+
+- msfconsole, msfvenom, searchsploit (exploit-db)
+
+</details>
+
+</details>
+
+**Tools Requiring Manual Installation (74 tools):**
+
+Some specialized tools require manual installation due to licensing, dependencies, or system requirements:
+
+- **Wireless**: aircrack-ng suite, kismet, wireshark, tshark
+- **Cloud**: kube-hunter, kube-bench, scout-suite, checkov, terrascan, falco, clair
+- **Web**: dirsearch, dirb, burp suite, zaproxy, jaeles, x8, wfuzz, xsser
+- **Password**: medusa, patator, crackmapexec, ophcrack, hashcat-utils, hashpump
+- **Binary**: ropper, libc-database
+- **OSINT**: maltego, censys-cli, have-i-been-pwned, social-analyzer
+- **Network**: arp-scan, nbtscan, rpcclient, smbmap, enum4linux (classic), fierce, dnsenum, tshark
+- **API**: insomnia, postman, httpie
+- **Forensics**: autopsy, bulk-extractor, outguess
+- **Additional**: qsreplace, uro
+
+**Installation Notes:**
+- Installation script works on any Linux system (portable paths)
+- No hardcoded user paths - works for all users
+- Some tools may fail on certain distributions (fallbacks included)
+- Full installation takes ~60-90 minutes (LLVM compilation)
+- Requires ~24GB disk space
+- See [install/README.md](install/README.md) for troubleshooting
 
 **Browser Agent Requirements:**
 ```bash
@@ -390,7 +473,9 @@ boaz_validate_options(loader=16, encoding="uuid")
 
 ### Security Tools Arsenal
 
-**155+ Professional Security Tools (including BOAZ Red Team):**
+**127 Professional Security Tools (53 Auto-Installed via `install_security_tools.sh`):**
+
+> **Note**: The installation script (`install/install_security_tools.sh`) automatically installs 53 essential tools. Additional tools can be manually installed as needed. See [installation guide](install/README.md) for details.
 
 <details>
 <summary><b>🔍 Network Reconnaissance & Scanning (25+ Tools)</b></summary>
@@ -424,7 +509,6 @@ boaz_validate_options(loader=16, encoding="uuid")
 - **FFuf** - Fast web fuzzer with advanced filtering and parameter discovery
 - **Dirb** - Comprehensive web content scanner with recursive scanning
 - **HTTPx** - Fast HTTP probing and technology detection
-- **Katana** - Next-generation crawling and spidering with JavaScript support
 - **Hakrawler** - Fast web endpoint discovery and crawling
 - **Gau** - Get All URLs from multiple sources (Wayback, Common Crawl, etc.)
 - **Waybackurls** - Historical URL discovery from Wayback Machine
