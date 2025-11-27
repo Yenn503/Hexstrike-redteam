@@ -16,6 +16,48 @@
 
 ---
 
+## 🔥 BOAZ Red Team Integration
+
+HexStrike now includes **BOAZ**, an advanced payload evasion framework for red team operations:
+
+### BOAZ Features
+
+- **77+ Process Injection Loaders** - Syscall, stealth, memory guard, threadless, and VEH/VCH techniques
+- **12 Encoding Schemes** - AES, ChaCha20, UUID, XOR, MAC, RC4, and more
+- **EDR/AV Evasion** - API unhooking, ETW patching, LLVM obfuscation (Akira/Pluto)
+- **Anti-Analysis** - Anti-emulation checks, sleep obfuscation, entropy reduction
+- **Binary Analysis** - Entropy analysis and optimization for heuristic evasion
+
+### BOAZ Capabilities in Action
+
+<div align="center">
+
+#### EDR/AV Bypass Demonstration
+**BOAZ-generated payload successfully bypassing ESET Smart Security Premium**
+
+<img src="assets/EDRbypass.png" alt="BOAZ EDR Bypass" width="800"/>
+
+*Payload with stealth injection techniques evading real-time protection and maintaining low detection profile*
+
+---
+
+#### MSFVenom Payload Obfuscation
+**Complete workflow: MSFVenom generation → BOAZ evasion → Enterprise-grade stealth payload**
+
+<img src="assets/Hex-Boaz.png" alt="BOAZ MSFVenom Obfuscation" width="900"/>
+
+*Demonstrates BOAZ transforming standard MSFVenom payloads into sophisticated evasive binaries with:*
+- **Loader #16** (Standard stealth injection)
+- **UUID Encoding** (Low entropy, legitimate-looking format)
+- **ETW Bypass** (Event Tracing for Windows patching)
+- **Anti-Emulation** (Sandbox detection)
+- **Entropy: 6.06/8** (Excellent for bypassing heuristic analysis)
+
+</div>
+
+
+---
+
 ## Architecture Overview
 
 HexStrike AI MCP v6.0 features a multi-agent architecture with autonomous AI agents, intelligent decision-making, and vulnerability intelligence.
@@ -341,18 +383,6 @@ Configure VS Code settings in `.vscode/settings.json`:
 
 ---
 
-## 🔥 BOAZ Red Team Integration
-
-HexStrike now includes **BOAZ**, an advanced payload evasion framework for red team operations:
-
-### BOAZ Features
-
-- **77+ Process Injection Loaders** - Syscall, stealth, memory guard, threadless, and VEH/VCH techniques
-- **12 Encoding Schemes** - AES, ChaCha20, UUID, XOR, MAC, RC4, and more
-- **EDR/AV Evasion** - API unhooking, ETW patching, LLVM obfuscation (Akira/Pluto)
-- **Anti-Analysis** - Anti-emulation checks, sleep obfuscation, entropy reduction
-- **Binary Analysis** - Entropy analysis and optimization for heuristic evasion
-
 ### BOAZ Capabilities in Action
 
 <div align="center">
@@ -371,15 +401,7 @@ HexStrike now includes **BOAZ**, an advanced payload evasion framework for red t
 
 <img src="assets/Hex-Boaz.png" alt="BOAZ MSFVenom Obfuscation" width="900"/>
 
-*Demonstrates BOAZ transforming standard MSFVenom payloads into sophisticated evasive binaries with:*
-- **Loader #16** (Standard stealth injection)
-- **UUID Encoding** (Low entropy, legitimate-looking format)
-- **ETW Bypass** (Event Tracing for Windows patching)
-- **Anti-Emulation** (Sandbox detection)
-- **Entropy: 6.06/8** (Excellent for bypassing heuristic analysis)
-
-</div>
-
+*Demonstrates BOAZ transforming standard MSFVenom payloads into sophis
 ---
 
 ### BOAZ MCP Tools
